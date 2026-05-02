@@ -2,7 +2,7 @@
 // @name         喵喵日志·周志自动填写助手
 // @namespace    https://m.xybsyw.com/
 // @version      1.0.0
-// @description  xiao
+// @description  校友邦日报/周志自动填写脚本
 // @author       iami233
 // @homepage     https://github.com/5ime/miaomiao-script
 // @supportURL   https://github.com/5ime/miaomiao-script/issues
