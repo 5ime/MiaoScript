@@ -21,11 +21,10 @@
 
 脚本默认从 **`http://127.0.0.1/`** 拉取文件：
 
-- `http://127.0.0.1/1.txt` → 第 1 篇  
-- `http://127.0.0.1/2.txt` → 第 2 篇  
-- 以此类推。
+- **日志（Alt+1）：** `1.txt`、`2.txt`… 按篇序号，第 1 篇、第 2 篇…  
+- **周志（Alt+2）：** 文件名与**目标周**一致，例如 `startWeek` 为 3 时，第 3 周读 `3.txt`，第 4 周读 `4.txt`。
 
-请在本机起一个**静态文件服务**，把 `1.txt`、`2.txt` 放在站点根目录（或按需改配置里的路径前缀）。例如：
+请在本机起一个**静态文件服务**，把对应命名的 txt 放在站点根目录（或按需改配置里的路径前缀）。例如：
 
 - Python：`python -m http.server 80`（在项目目录执行，注意端口与 `localTextBaseUrl` 一致）
 - 任意可将目录映射到 `http://127.0.0.1:端口/` 的工具
@@ -56,7 +55,7 @@ localTextBaseUrl: 'http://127.0.0.1/',
 内容：正文支持多行……
 ```
 
-周次由配置里的 **`startWeek`** 与篇序号推算：`1.txt` 对应第 `startWeek` 周，依次递增。
+周次由配置里的 **`startWeek`、`endWeek`** 与本次上传篇数决定；本地文件名与周次一致：**第 N 周使用 `N.txt`**（例如从第 3 周写到第 4 周，则准备 `3.txt`、`4.txt`）。
 
 ## 配置说明（编辑 `miao_script.js`）
 
@@ -88,7 +87,7 @@ localTextBaseUrl: 'http://127.0.0.1/',
 |------|------|
 | `listUrl` | 周志列表页（注意站点路径可能是 `weeklyJounal` 拼写） |
 | `startWeek` / `endWeek` | 教学周范围；实际篇数 = **min(uploadCount, endWeek − startWeek + 1)** |
-| `uploadCount` | 最多读几篇 txt |
+| `uploadCount` | 希望最多上传几篇；本地 txt 名为 **`{周次}.txt`**（第 N 周对应 `N.txt`，不是按 1、2、3 篇编号） |
 
 ## 运行流程简述
 
@@ -104,3 +103,4 @@ localTextBaseUrl: 'http://127.0.0.1/',
 - **一直提示本地文本拉取失败：** 检查本机 HTTP 是否监听、`localTextBaseUrl` 是否与浏览器访问地址一致、Tampermonkey 是否允许访问 `127.0.0.1`。  
 - **日志报错 startTime：** 必须为合法 `YYYY-MM-DD`。  
 - **篇数比预期少：** 日志看日期区间、周志看周范围是否把 `uploadCount` **裁减**了。  
+- **周志找不到 txt：** 确认文件名是否为 **`{周次}.txt`**（与 `startWeek` 起算的周序号一致），而不是 `1.txt`、`2.txt` 按篇序命名。  

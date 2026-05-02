@@ -987,7 +987,7 @@
 
       if (mode === 'weekly') {
         log(
-          `周志周次：第 ${cfg.startWeek}–${cfg.endWeek} 周；本次上传 ${uploadTarget} 篇（1.txt→第${cfg.startWeek}周，依次递增）`
+          `周志周次：第 ${cfg.startWeek}–${cfg.endWeek} 周；本次上传 ${uploadTarget} 篇（本地 txt 文件名与周次一致：第${cfg.startWeek}周→${cfg.startWeek}.txt，依此类推）`
         );
       }
       if (mode === 'daily') {
@@ -998,8 +998,9 @@
 
       while (state.successCount < uploadTarget) {
         const fileIndex = state.successCount + 1;
-        const localTextUrl = `${cfg.localTextBaseUrl}${fileIndex}.txt`;
         const weekNum = mode === 'weekly' ? resolveWeeklyWeekNum(cfg, fileIndex) : null;
+        const txtKey = mode === 'weekly' ? weekNum : fileIndex;
+        const localTextUrl = `${cfg.localTextBaseUrl}${txtKey}.txt`;
         const dateStr = mode === 'daily' ? resolveDailyDateStr(cfg, fileIndex) : null;
 
         let lastErr = null;
