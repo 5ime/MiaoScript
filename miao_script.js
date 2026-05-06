@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         喵喵日志·周志自动填写助手
+// @name         喵脚本·校友邦日志/周志自动填写助手
 // @namespace    https://m.xybsyw.com/
 // @version      1.0.0
 // @description  校友邦日报/周志自动填写脚本
 // @author       iami233
-// @homepage     https://github.com/5ime/miaomiao-script
-// @supportURL   https://github.com/5ime/miaomiao-script/issues
+// @homepage     https://github.com/5ime/MiaoScript
+// @supportURL   https://github.com/5ime/MiaoScript/issues
 // @license      GPL-3.0
 // @match        https://m.xybsyw.com/*
 // @grant        GM_xmlhttpRequest
