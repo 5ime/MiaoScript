@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         喵脚本·校友邦日志/周志自动填写助手
 // @namespace    https://m.xybsyw.com/
-// @version      1.0.0
+// @version      1.1.0
 // @description  校友邦日报/周志自动填写脚本
 // @author       iami233
 // @homepage     https://github.com/5ime/MiaoScript
 // @supportURL   https://github.com/5ime/MiaoScript/issues
 // @license      GPL-3.0
-// @match        https://m.xybsyw.com/*
+// @match        https://*.xybsyw.com/*
 // @grant        GM_xmlhttpRequest
 // @connect      127.0.0.1
 // @run-at       document-start
@@ -446,11 +446,17 @@
     }
   }
 
+  // 配置里写的是 m 站地址，实际跟随当前域名，www / 无 index.html 都能对上
+  function withCurrentOrigin(url) {
+    return url.replace(/^https?:\/\/[^/]+/, location.origin);
+  }
+
   async function gotoListPage(cfg, log) {
-    if (!location.href.startsWith(cfg.listUrl)) {
-      log('跳转到列表页:', cfg.listUrl);
-      location.href = cfg.listUrl;
-      await waitForCondition(() => location.href.startsWith(cfg.listUrl), {
+    const listUrl = withCurrentOrigin(cfg.listUrl);
+    if (!location.href.startsWith(listUrl)) {
+      log('跳转到列表页:', listUrl);
+      location.href = listUrl;
+      await waitForCondition(() => location.href.startsWith(listUrl), {
         timeout: 15000,
         interval: 200
       });
